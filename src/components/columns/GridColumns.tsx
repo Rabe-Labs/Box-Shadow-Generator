@@ -1,11 +1,11 @@
 import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
 
-interface GridColumnsProps extends HTMLAttributes<HTMLDivElement> {}
+interface IGridColumnsProps extends HTMLAttributes<HTMLDivElement> {}
 
-const GridColumns = ({ className, children }: GridColumnsProps) => {
+const GridColumns = ({ className, children }: IGridColumnsProps) => {
   return (
-    <div className={cn("col bg-slate-100 p-5 lg-h-full overflow", className)}>
+    <div className={cn("col bg-[#f9fafb] p-5 lg-h-full overflow", className)}>
       {children}
     </div>
   );
