@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 h-[calc(100vh-110px)]">
         <GridColumns>
           <ShadowColumn />
         </GridColumns>

@@ -35,7 +35,7 @@ const ShadowSlider = ({ label, min, max, defaultVal }: IShadowSliderProps) => {
         </div>
       </div>
       <Slider
-        //defaultValue={defaultVal}
+        name={"PLACEHOLDER"}
         max={max}
         min={min}
         step={1}

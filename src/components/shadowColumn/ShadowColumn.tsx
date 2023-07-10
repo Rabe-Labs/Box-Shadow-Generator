@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "../ui/button";
-import ShadowAccordin, { ShadowLayer } from "./ShadowLayer";
+import ShadowAccordin from "./ShadowAccordin";
 import { IBoxShadowProperties } from "./shadow.types";
 import { Plus } from "lucide-react";
 
@@ -11,7 +11,7 @@ const ShadowSection = () => {
   return (
     <section className="flex flex-col gap-4">
       <h1 className="lg:text-center">
-        <span className="text-xl drop-shadow font-medium">
+        <span className="text-md drop-shadow font-medium">
           Customize Shadow
         </span>
       </h1>

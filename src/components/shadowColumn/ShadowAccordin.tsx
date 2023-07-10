@@ -1,5 +1,5 @@
 import React from "react";
-import { IBoxShadowProperties } from "./shadow.types";
+import { IBoxShadowProps } from "./shadow.types";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import ColorPicker from "./ColorPicker";
@@ -14,32 +14,38 @@ import {
 
 interface IShadowLayerProps {
   index: number;
-  layer: IBoxShadowProperties;
+  layer: IBoxShadowProps;
 }
 
 const ShadowAccordin = ({ layer, index }: IShadowLayerProps) => {
   return (
     <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value={`shadow-${index}`}>
-        <AccordionTrigger> Shadow {index} </AccordionTrigger>
+      <AccordionItem value={`shadow-${index + 1}`}>
+        <AccordionTrigger> Shadow {index + 1} </AccordionTrigger>
         <AccordionContent>
           <div className="pb-2 space-y-4">
             <div className="flex items-center">
               {/* CHECKBOXES */}
               <div className="flex gap-3">
                 <label
-                  htmlFor="inset"
+                  htmlFor={`inset-${index + 1}`}
                   className="flex items-center gap-[0.3em] text-[0.95rem] pl-1"
                 >
-                  <Checkbox />
+                  <Checkbox
+                    id={`inset-${index + 1}`}
+                    name={`inset-${index + 1}`}
+                  />
                   <span> Inset </span>
                 </label>
 
                 <label
-                  htmlFor="inset"
+                  htmlFor={`active-${index + 1}`}
                   className="flex items-center gap-1 text-[0.95rem]"
                 >
-                  <Checkbox />
+                  <Checkbox
+                    id={`active-${index + 1}`}
+                    name={`active-${index + 1}`}
+                  />
                   <span> Active </span>
                 </label>
               </div>
