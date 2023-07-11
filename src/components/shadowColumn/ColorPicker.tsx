@@ -1,8 +1,21 @@
 "use client";
-import React from "react";
+import { useEffect, useState } from "react";
 
-function ColorPicker() {
-  const [colorValue, setColorValue] = React.useState("#000000");
+interface IColorPickerProps {
+  defaultColor?: string;
+  handleChange: (clr: string) => void;
+}
+
+function ColorPicker({
+  defaultColor = "#000000",
+  handleChange,
+}: IColorPickerProps) {
+  const [colorValue, setColorValue] = useState(defaultColor);
+
+  useEffect(() => {
+    handleChange(colorValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [colorValue]);
 
   return (
     <div className="input-label">

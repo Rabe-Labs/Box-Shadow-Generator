@@ -19,8 +19,8 @@ const defaultBoxShadowProps: IBoxShadowProps = {
   blurRadius: 10,
   spreadRadius: -5,
   color: "#000000",
-  active: "",
-  inset: "",
+  active: false,
+  inset: false,
 };
 
 const defaultContainerProps: IContainerProps = {
@@ -57,7 +57,7 @@ export function ContextProvider({ children }: IContextProviderProps) {
     setContextState((prevState) => ({
       ...prevState,
       boxShadows: prevState.boxShadows.filter(
-        (shadowLayer) => shadowLayer.id !== id
+        (currShadow) => currShadow.id !== id
       ),
     }));
   };

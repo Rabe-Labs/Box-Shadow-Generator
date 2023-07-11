@@ -1,17 +1,33 @@
-import React from "react";
+import { ChangeEvent, useState, useEffect } from "react";
 import { Slider } from "../ui/slider";
+import { IBoxShadowProps } from "./shadow.types";
+import { ShadowKey } from "@/context/shadowContainerContext.types";
 
 interface IShadowSliderProps {
   defaultVal: number[];
   min: number;
   max: number;
   label: string;
+  name: keyof IBoxShadowProps;
   value?: number;
+  handleChange: (key: keyof IBoxShadowProps, val: number) => void;
 }
 
-const ShadowSlider = ({ label, min, max, defaultVal }: IShadowSliderProps) => {
-  const [sliderValue, setSliderValue] = React.useState<number[]>(defaultVal);
-  console.log("sliderValue", sliderValue);
+const ShadowSlider = ({
+  handleChange,
+  name,
+  label,
+  min,
+  max,
+  defaultVal,
+}: IShadowSliderProps) => {
+  const [sliderValue, setSliderValue] = useState<number[]>(defaultVal);
+
+  useEffect(() => {
+    handleChange(name, sliderValue[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sliderValue]);
+
   return (
     <div className="space-y-4">
       <div>
@@ -21,7 +37,7 @@ const ShadowSlider = ({ label, min, max, defaultVal }: IShadowSliderProps) => {
           </label>
           <div className="flex gap-1 items-center">
             <input
-              value={String(sliderValue[0])}
+              value={sliderValue[0]}
               onChange={(e) => setSliderValue([Number(e.target.value)])}
               name="sliderValue"
               min="10"
@@ -35,7 +51,7 @@ const ShadowSlider = ({ label, min, max, defaultVal }: IShadowSliderProps) => {
         </div>
       </div>
       <Slider
-        name={"PLACEHOLDER"}
+        name={name}
         max={max}
         min={min}
         step={1}

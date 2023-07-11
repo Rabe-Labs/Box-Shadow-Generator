@@ -6,7 +6,8 @@ export type ShadowKey =
   | "blurRadius"
   | "spreadRadius"
   | "color"
-  | "activeInset";
+  | "active"
+  | "inset";
 
 export type ContainerKey =
   | "width"

@@ -1,5 +1,6 @@
 import GridColumns from "@/components/columns/GridColumns";
 import Navbar from "@/components/header/Navbar";
+import PreviewColumn from "@/components/previewColumn/PreviewColumn";
 import ShadowColumn from "@/components/shadowColumn/ShadowColumn";
 import Image from "next/image";
 
@@ -11,7 +12,9 @@ export default function Home() {
         <GridColumns>
           <ShadowColumn />
         </GridColumns>
-        <GridColumns className="lg:col-span-2 ">Preview</GridColumns>
+        <GridColumns className="lg:col-span-2 ">
+          <PreviewColumn />
+        </GridColumns>
         <GridColumns className="lg:col-span-2">Box Properties</GridColumns>
       </div>
     </main>

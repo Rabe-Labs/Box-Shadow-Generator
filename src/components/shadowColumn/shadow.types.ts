@@ -7,6 +7,6 @@ export interface IBoxShadowProps extends HTMLAttributes<HTMLDivElement> {
   blurRadius: number;
   spreadRadius: number;
   color: string;
-  inset?: "" | "inset";
-  active?: "" | "active";
+  inset?: boolean;
+  active?: boolean;
 }
