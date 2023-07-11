@@ -12,7 +12,7 @@ export default function Home() {
         <GridColumns>
           <ShadowColumn />
         </GridColumns>
-        <GridColumns className="lg:col-span-2 ">
+        <GridColumns className="h-[500px] lg:h-auto lg:col-span-2 p-0 bg-red-500">
           <PreviewColumn />
         </GridColumns>
         <GridColumns className="lg:col-span-2">Box Properties</GridColumns>

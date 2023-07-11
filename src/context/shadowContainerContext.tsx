@@ -26,13 +26,13 @@ const defaultBoxShadowProps: IBoxShadowProps = {
 const defaultContainerProps: IContainerProps = {
   width: 200,
   height: 200,
-  borderRadius: 0,
+  borderRadius: 1,
   backgroundColor: "#ffffff",
 };
 
 const initialState: IBoxShadowState = {
   boxShadows: [{ ...defaultBoxShadowProps }],
-  containerProps: [{ ...defaultContainerProps }],
+  containerProps: { ...defaultContainerProps },
 };
 
 interface IContextProviderProps {

@@ -24,7 +24,7 @@ export interface IContainerProps {
 
 export interface IBoxShadowState {
   boxShadows: IBoxShadowProps[];
-  containerProps: IContainerProps[];
+  containerProps: IContainerProps;
 }
 
 export interface IShadowContainerContext {
