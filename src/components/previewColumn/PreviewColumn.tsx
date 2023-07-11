@@ -1,12 +1,25 @@
 "use client";
 import useShadowContainer from "@/hooks/useShadowContainer";
-import { getAllBoxShadows } from "@/lib/utils";
+import { cn, getAllBoxShadows } from "@/lib/utils";
 import { CSSProperties, useEffect, useState } from "react";
+
+// export interface IBoxShadowProps extends HTMLAttributes<HTMLDivElement> {
+//   id: string;
+//   horizontalOffset: number;
+//   verticalOffset: number;
+//   blurRadius: number;
+//   spreadRadius: number;
+//   color: string;
+//   inset?: boolean;
+//   active?: boolean;
+// }
 
 const PreviewColumn = () => {
   const { contextState } = useShadowContainer();
   const [boxShadowStyle, setBoxShadowStyle] = useState<CSSProperties>();
   //console.log("contextState", contextState.containerProps);
+
+  const { canvasColor, ...containerProps } = contextState.containerProps;
 
   useEffect(() => {
     const boxShadow = getAllBoxShadows(contextState.boxShadows);
@@ -20,8 +33,14 @@ const PreviewColumn = () => {
     setBoxShadowStyle(shadowStyle);
   }, [contextState]);
   return (
-    <section className="h-full w-full grid place-content-center overflow-hidden">
-      <div style={{ ...contextState.containerProps, ...boxShadowStyle }} />
+    <section
+      style={{ backgroundColor: canvasColor }}
+      className={cn(
+        "h-full w-full grid place-content-center overflow-hidden",
+        canvasColor
+      )}
+    >
+      <div style={{ ...containerProps, ...boxShadowStyle }} />
     </section>
   );
 };

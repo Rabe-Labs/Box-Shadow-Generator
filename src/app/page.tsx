@@ -1,3 +1,4 @@
+import BoxPropsColumn from "@/components/boxPropsColumn/BoxPropsColumn";
 import GridColumns from "@/components/columns/GridColumns";
 import Navbar from "@/components/header/Navbar";
 import PreviewColumn from "@/components/previewColumn/PreviewColumn";
@@ -15,7 +16,9 @@ export default function Home() {
         <GridColumns className="h-[500px] lg:h-auto lg:col-span-2 p-0">
           <PreviewColumn />
         </GridColumns>
-        <GridColumns className="lg:col-span-2">Box Properties</GridColumns>
+        <GridColumns className="lg:col-span-2">
+          <BoxPropsColumn />
+        </GridColumns>
       </div>
     </main>
   );

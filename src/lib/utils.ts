@@ -23,5 +23,8 @@ const getBoxShadow = (boxShadowProps: IBoxShadowProps): string =>
 
 export const getAllBoxShadows = (boxShadowProps: IBoxShadowProps[]) =>
   boxShadowProps
-    .map((currentShadow) => getBoxShadow(currentShadow).trim())
+    .map((currentShadow) => {
+      console.log("getBoxShadow", getBoxShadow(currentShadow).trim());
+      return getBoxShadow(currentShadow).trim();
+    })
     .join(", ");

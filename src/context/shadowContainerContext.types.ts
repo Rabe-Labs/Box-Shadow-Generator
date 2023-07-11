@@ -20,6 +20,7 @@ export interface IContainerProps {
   height: number;
   borderRadius: number;
   backgroundColor: string;
+  canvasColor: string;
 }
 
 export interface IBoxShadowState {

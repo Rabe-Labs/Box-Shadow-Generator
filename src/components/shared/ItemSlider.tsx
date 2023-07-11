@@ -1,16 +1,22 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { Slider } from "../ui/slider";
-import { IBoxShadowProps } from "./shadow.types";
-import { ShadowKey } from "@/context/shadowContainerContext.types";
+import { IBoxShadowProps } from "../shadowColumn/shadow.types";
+import {
+  IContainerProps,
+  ShadowKey,
+} from "@/context/shadowContainerContext.types";
 
 interface IShadowSliderProps {
   defaultVal: number[];
   min: number;
   max: number;
   label: string;
-  name: keyof IBoxShadowProps;
+  name: keyof IContainerProps | keyof IBoxShadowProps;
   value?: number;
-  handleChange: (key: keyof IBoxShadowProps, val: number) => void;
+  handleChange: (
+    key: keyof IBoxShadowProps | keyof IContainerProps,
+    val: number
+  ) => void;
 }
 
 const ShadowSlider = ({
@@ -26,7 +32,7 @@ const ShadowSlider = ({
   useEffect(() => {
     handleChange(name, sliderValue[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sliderValue]);
+  }, [sliderValue, setSliderValue]);
 
   return (
     <div className="space-y-4">
@@ -38,10 +44,22 @@ const ShadowSlider = ({
           <div className="flex gap-1 items-center">
             <input
               value={sliderValue[0]}
-              onChange={(e) => setSliderValue([Number(e.target.value)])}
-              name="sliderValue"
-              min="10"
-              max="100"
+              onChange={(e) => {
+                if (name === "blurRadius" && Number(e.target.value) < 0) {
+                  setSliderValue([0]);
+                  return;
+                } else if (
+                  name === "spreadRadius" &&
+                  Number(e.target.value) < -99
+                ) {
+                  setSliderValue([-99]);
+                  return;
+                }
+                setSliderValue([Number(e.target.value)]);
+              }}
+              min={min}
+              max={max}
+              name={name}
               type="number"
               className="w-12 border border-gray-300 appearance-none bg-white shadow-sm px-2 py-1 text-sm rounded-sm
               focus:outline-none focus:ring-2 focus:ring-blue-600"

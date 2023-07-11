@@ -28,6 +28,7 @@ const defaultContainerProps: IContainerProps = {
   height: 200,
   borderRadius: 1,
   backgroundColor: "#ffffff",
+  canvasColor: "#f9fafb",
 };
 
 const initialState: IBoxShadowState = {

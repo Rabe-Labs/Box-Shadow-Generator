@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent } from "react";
 import { IBoxShadowProps } from "./shadow.types";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
-import ColorPicker from "./ColorPicker";
-import ShadowSlider from "./ShadowSlider";
+import ColorPicker from "../shared/ColorPicker";
+import ShadowSlider from "../shared/ItemSlider";
 import { Checkbox } from "../ui/checkbox";
 import {
   Accordion,
@@ -51,8 +51,8 @@ const AccordinItem = ({ index, shadowProp }: IAccordinItemProps) => {
     setShadowProperty(shadowProp.id, nameOfTheKey, val);
   };
 
-  const handleColorValueChange = (clr: string) => {
-    setShadowProperty(shadowProp.id, "color", clr);
+  const handleColorValueChange = (key: keyof IBoxShadowProps, clr: string) => {
+    setShadowProperty(shadowProp.id, key, clr);
   };
 
   return (
@@ -111,6 +111,7 @@ const AccordinItem = ({ index, shadowProp }: IAccordinItemProps) => {
           {/* COLOR PICKER */}
           <div className="mt-4">
             <ColorPicker
+              itemKey="color"
               defaultColor={shadowProp.color}
               handleChange={handleColorValueChange}
             />
@@ -139,7 +140,7 @@ const AccordinItem = ({ index, shadowProp }: IAccordinItemProps) => {
               name={"blurRadius"}
               defaultVal={[shadowProp.blurRadius]}
               max={200}
-              min={-200}
+              min={0}
             />
             <ShadowSlider
               handleChange={handleSliderValueChange}
@@ -147,7 +148,7 @@ const AccordinItem = ({ index, shadowProp }: IAccordinItemProps) => {
               label={"Spread radius"}
               defaultVal={[shadowProp.spreadRadius]}
               max={200}
-              min={-200}
+              min={-99}
             />
           </div>
         </div>

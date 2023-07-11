@@ -1,25 +1,38 @@
 "use client";
-import { useEffect, useState } from "react";
+import { IContainerProps } from "@/context/shadowContainerContext.types";
+import { HTMLAttributes, useEffect, useState } from "react";
+import { IBoxShadowProps } from "../shadowColumn/shadow.types";
 
-interface IColorPickerProps {
+interface IColorPickerProps extends HTMLAttributes<HTMLDivElement> {
+  name?: string;
+  itemKey: keyof IContainerProps | keyof IBoxShadowProps;
   defaultColor?: string;
-  handleChange: (clr: string) => void;
+  handleChange: (
+    itemKey: keyof IContainerProps | keyof IBoxShadowProps,
+    val: string
+  ) => void;
 }
 
 function ColorPicker({
+  className,
+  itemKey,
+  name = "color",
   defaultColor = "#000000",
   handleChange,
 }: IColorPickerProps) {
   const [colorValue, setColorValue] = useState(defaultColor);
 
   useEffect(() => {
-    handleChange(colorValue);
+    handleChange(itemKey, colorValue);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [colorValue]);
 
   return (
-    <div className="input-label">
-      <label htmlFor="icon-color">Color</label>
+    <div className="">
+      <label htmlFor="icon-color" className="text-sm mt-2">
+        {name}
+      </label>
       <div className="w-full border-2 bg-[#f6f6f7] p-1 rounded-md">
         <div className="grid grid-cols-[30px,auto]">
           {/* color-input-wrapper */}
