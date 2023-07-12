@@ -6,27 +6,24 @@ import {
   ShadowKey,
 } from "@/context/shadowContainerContext.types";
 
-interface IShadowSliderProps {
+interface IShadowSliderProps<T> {
   defaultVal: number[];
   min: number;
   max: number;
   label: string;
-  name: keyof IContainerProps | keyof IBoxShadowProps;
-  value?: number;
-  handleChange: (
-    key: keyof IBoxShadowProps | keyof IContainerProps,
-    val: number
-  ) => void;
+  value: number;
+  name: keyof T;
+  handleChange: (key: keyof T, val: number) => void;
 }
 
-const ShadowSlider = ({
+const ShadowSlider = <T extends object>({
   handleChange,
   name,
   label,
   min,
   max,
   defaultVal,
-}: IShadowSliderProps) => {
+}: IShadowSliderProps<IContainerProps | IBoxShadowProps>) => {
   const [sliderValue, setSliderValue] = useState<number[]>(defaultVal);
 
   useEffect(() => {

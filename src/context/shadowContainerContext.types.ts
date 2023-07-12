@@ -15,6 +15,13 @@ export type ContainerKey =
   | "borderRadius"
   | "backgroundColor";
 
+export enum ContainerType {
+  WIDTH,
+  HEIGHT,
+  BORDER_RADIUS,
+  BACKGROUND_COLOR,
+}
+
 export interface IContainerProps {
   width: number;
   height: number;
@@ -34,7 +41,7 @@ export interface IShadowContainerContext {
   removeShadow: (id: string) => void;
   setShadowProperty: (
     id: string,
-    shadowKey: keyof IBoxShadowProps,
+    key: keyof IBoxShadowProps,
     value: IBoxShadowProps[keyof IBoxShadowProps]
   ) => void;
   setContainerProperty: <K extends keyof IContainerProps>(

@@ -1,6 +1,7 @@
 import React from "react";
 import "./navbar.css";
 import { Button } from "../ui/button";
+import { BookMarked } from "lucide-react";
 
 const Navbar = () => {
   return (
@@ -11,8 +12,8 @@ const Navbar = () => {
       <nav>
         <ul className="flex justify-center items-center gap-8">
           <li>
-            <a href="#" className="uppercase">
-              Saved
+            <a href="#" className="flex items-center gap-1 uppercase">
+              <BookMarked size="1.1em" /> Saves
             </a>
           </li>
           <li className="">

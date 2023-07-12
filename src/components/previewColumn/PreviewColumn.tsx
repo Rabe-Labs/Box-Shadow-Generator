@@ -3,17 +3,6 @@ import useShadowContainer from "@/hooks/useShadowContainer";
 import { cn, getAllBoxShadows } from "@/lib/utils";
 import { CSSProperties, useEffect, useState } from "react";
 
-// export interface IBoxShadowProps extends HTMLAttributes<HTMLDivElement> {
-//   id: string;
-//   horizontalOffset: number;
-//   verticalOffset: number;
-//   blurRadius: number;
-//   spreadRadius: number;
-//   color: string;
-//   inset?: boolean;
-//   active?: boolean;
-// }
-
 const PreviewColumn = () => {
   const { contextState } = useShadowContainer();
   const [boxShadowStyle, setBoxShadowStyle] = useState<CSSProperties>();

@@ -6,6 +6,11 @@ import ColorPicker from "../shared/ColorPicker";
 import { IContainerProps } from "@/context/shadowContainerContext.types";
 import ShadowSlider from "../shared/ItemSlider";
 
+interface IBoxShadowProps {
+  name: keyof IBoxShadowProps;
+  handleChange: (key: keyof IBoxShadowProps, val: string) => void;
+}
+
 interface IBoxPropsColumnProps {}
 
 const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
@@ -14,11 +19,8 @@ const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
     setContainerProperty,
   } = useShadowContainer();
 
-  const handleValueChange = (
-    boxPropsKey: keyof IContainerProps,
-    val: string
-  ) => {
-    setContainerProperty(boxPropsKey, val);
+  const handleValueChange = (key: keyof IContainerProps, val: number) => {
+    setContainerProperty(key, val);
   };
 
   return (

@@ -9,14 +9,14 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 h-[calc(100vh-110px)]">
-        <GridColumns>
+      <div className="grid grid-cols-1 lg:grid-cols-[repeat(5,minmax(auto,1fr))] gap-1 h-[calc(100vh-110px)]">
+        <GridColumns className="lg:min-w-[270px]">
           <ShadowColumn />
         </GridColumns>
-        <GridColumns className="h-[500px] lg:h-auto lg:col-span-2 p-0">
+        <GridColumns className="h-[500px] lg:h-auto lg:col-span-3 p-0">
           <PreviewColumn />
         </GridColumns>
-        <GridColumns className="lg:col-span-2">
+        <GridColumns className="lg:col-span-1 lg:min-w-[270px]">
           <BoxPropsColumn />
         </GridColumns>
       </div>

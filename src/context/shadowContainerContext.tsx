@@ -19,7 +19,7 @@ const defaultBoxShadowProps: IBoxShadowProps = {
   blurRadius: 10,
   spreadRadius: -5,
   color: "#000000",
-  active: false,
+  active: true,
   inset: false,
 };
 
@@ -40,7 +40,7 @@ interface IContextProviderProps {
   children: React.ReactNode;
 }
 
-export function ContextProvider({ children }: IContextProviderProps) {
+export default function ContextProvider({ children }: IContextProviderProps) {
   const [contextState, setContextState] =
     useState<IBoxShadowState>(initialState);
 
