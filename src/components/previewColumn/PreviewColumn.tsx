@@ -2,6 +2,7 @@
 import useShadowContainer from "@/hooks/useShadowContainer";
 import { cn, getAllBoxShadows } from "@/lib/utils";
 import { CSSProperties, useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const PreviewColumn = () => {
   const { contextState } = useShadowContainer();
@@ -25,9 +26,13 @@ const PreviewColumn = () => {
   return (
     <section
       style={{ background: canvasColor }}
-      className={cn("h-full w-full grid place-content-center overflow-hidden")}
+      className={cn(
+        "relative h-full w-full grid place-content-center overflow-hidden"
+      )}
     >
       <div style={{ ...containerProps, ...boxShadowStyle }} />
+
+      <Badge className="absolute top-4 left-4"> Preview </Badge>
     </section>
   );
 };

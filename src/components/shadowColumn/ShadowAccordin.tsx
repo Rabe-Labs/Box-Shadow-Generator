@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import useShadowContainer from "@/hooks/useShadowContainer";
+import { cn } from "@/lib/utils";
 //import { camalize } from "@/lib/utils";
 
 interface IAccordinItemProps {
@@ -57,7 +58,12 @@ const AccordinItem = ({ index, shadowProp }: IAccordinItemProps) => {
 
   return (
     <AccordionItem value={`shadow-${index + 1}`}>
-      <AccordionTrigger> Shadow {index + 1} </AccordionTrigger>
+      <AccordionTrigger
+        className={cn(shadowProp.active ? "opacity-100" : "opacity-40")}
+      >
+        {" "}
+        Shadow {index + 1}{" "}
+      </AccordionTrigger>
       <AccordionContent>
         <div className="pb-2 space-y-4">
           <div className="flex items-center">
