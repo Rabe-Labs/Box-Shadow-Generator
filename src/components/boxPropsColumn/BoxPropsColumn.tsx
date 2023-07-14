@@ -1,10 +1,17 @@
 "use client";
-import React from "react";
+import { useState, useEffect } from "react";
 import ColumnTitle from "../shared/ColumnTitle";
 import useShadowContainer from "@/hooks/useShadowContainer";
 import ColorPicker from "../shared/ColorPicker";
 import { IContainerProps } from "@/context/shadowContainerContext.types";
 import ShadowSlider from "../shared/ItemSlider";
+import { cn, getAllBoxShadows } from "@/lib/utils";
+import { Minus, Scaling, X } from "lucide-react";
+import "highlight.js/styles/github.css";
+import useCopy from "use-copy";
+
+import { Highlighter } from "../codeSection/Highlighter";
+import CodeColumn from "../codeSection/CodeSection";
 
 interface IBoxShadowProps {
   name: keyof IBoxShadowProps;
@@ -21,6 +28,17 @@ const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
 
   const handleValueChange = (key: keyof IContainerProps, val: number) => {
     setContainerProperty(key, val);
+  };
+
+  const [cssSnippet, setCssSnippet] = useState<string>("");
+  const [copied, copy, setCopied] = useCopy(cssSnippet);
+  const { contextState } = useShadowContainer();
+  const copyText = () => {
+    copy();
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 3000);
   };
 
   return (
@@ -64,6 +82,7 @@ const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
         max={200}
         min={0}
       />
+      <CodeColumn />
     </section>
   );
 };

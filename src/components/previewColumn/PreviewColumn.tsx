@@ -9,6 +9,7 @@ const PreviewColumn = () => {
   //console.log("contextState", contextState.containerProps);
 
   const { canvasColor, ...containerProps } = contextState.containerProps;
+  console.log("containerProps ", containerProps, boxShadowStyle);
 
   useEffect(() => {
     const boxShadow = getAllBoxShadows(contextState.boxShadows);
@@ -23,11 +24,8 @@ const PreviewColumn = () => {
   }, [contextState]);
   return (
     <section
-      style={{ backgroundColor: canvasColor }}
-      className={cn(
-        "h-full w-full grid place-content-center overflow-hidden",
-        canvasColor
-      )}
+      style={{ background: canvasColor }}
+      className={cn("h-full w-full grid place-content-center overflow-hidden")}
     >
       <div style={{ ...containerProps, ...boxShadowStyle }} />
     </section>
