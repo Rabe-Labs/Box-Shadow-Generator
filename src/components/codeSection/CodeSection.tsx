@@ -56,48 +56,43 @@ const CodeColumn = () => {
   }, [contextState, cssMode]);
 
   return (
-    <section className="">
-      {/* CODE BLOCK */}
-      <ColumnTitle name="Code" className="mb-3" />
-
-      <Tabs
-        onValueChange={(val) => {
-          if (val === "vanillaCSS" || val === "tailwind") setCssMode(val);
-        }}
-        defaultValue={cssMode}
-        className="w-full mb-3 flex flex-col"
-      >
-        <TabsList className="h-11 w-fit mx-auto px-2">
-          <TabsTrigger value="vanillaCSS">Vanilla CSS</TabsTrigger>
-          <TabsTrigger value="tailwind">Tailwind </TabsTrigger>
-        </TabsList>
-        <TabsContent value={cssMode}>
-          <div
-            className={cn(
-              "w-full h-9 flex items-center justify-between px-2 rounded-t-md",
-              "bg-[rgb(52,53,65)]"
-            )}
-          >
-            <div className="flex">
-              <div className="h-4 w-4 rounded-[50%] m-1 bg-[rgb(255,189,45)] flex items-center justify-center cursor-pointer">
-                <Minus
-                  size="0.8em"
-                  className="opacity-0 text-[#985712] hover:opacity-100 transition-opacity"
-                />
-              </div>
+    <Tabs
+      onValueChange={(val) => {
+        if (val === "vanillaCSS" || val === "tailwind") setCssMode(val);
+      }}
+      defaultValue={cssMode}
+      className="w-full mb-3 flex flex-col gap-4"
+    >
+      <TabsContent value={cssMode}>
+        <div
+          className={cn(
+            "w-full h-9 flex items-center justify-between px-2 rounded-t-md",
+            "bg-[rgb(52,53,65)]"
+          )}
+        >
+          <div className="flex">
+            <div className="h-4 w-4 rounded-[50%] m-1 bg-[rgb(255,189,45)] flex items-center justify-center cursor-pointer">
+              <Minus
+                size="0.8em"
+                className="opacity-0 text-[#985712] hover:opacity-100 transition-opacity"
+              />
             </div>
           </div>
+        </div>
 
-          <Highlighter
-            language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
-            theme={atomOneDark}
-            className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]"
-          >
-            {cssSnippet}
-          </Highlighter>
-        </TabsContent>
-      </Tabs>
-    </section>
+        <Highlighter
+          language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
+          theme={atomOneDark}
+          className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]"
+        >
+          {cssSnippet}
+        </Highlighter>
+      </TabsContent>{" "}
+      <TabsList className="h-11 w-fit ml-auto px-2">
+        <TabsTrigger value="vanillaCSS">Vanilla CSS</TabsTrigger>
+        <TabsTrigger value="tailwind">Tailwind </TabsTrigger>
+      </TabsList>
+    </Tabs>
   );
 };
 

@@ -12,6 +12,7 @@ import useCopy from "use-copy";
 
 import { Highlighter } from "../codeSection/Highlighter";
 import CodeColumn from "../codeSection/CodeSection";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface IBoxShadowProps {
   name: keyof IBoxShadowProps;
@@ -20,7 +21,7 @@ interface IBoxShadowProps {
 
 interface IBoxPropsColumnProps {}
 
-const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
+const BoxPropsColumn1 = (props: IBoxPropsColumnProps) => {
   const {
     contextState: { containerProps },
     setContainerProperty,
@@ -43,48 +44,55 @@ const BoxPropsColumn = (props: IBoxPropsColumnProps) => {
 
   return (
     <section className="flex flex-col gap-6">
-      <ColumnTitle name="Box Properties" />
-      <div className="mt-2">
-        <ColorPicker
-          name={"Background Color"}
-          itemKey={"backgroundColor"}
-          defaultColor={containerProps.backgroundColor}
-          handleChange={handleValueChange}
-        />
-      </div>
-      <ColorPicker
-        name={"Canvas Color"}
-        itemKey={"canvasColor"}
-        defaultColor={containerProps.canvasColor}
-        handleChange={handleValueChange}
-      />
-      <ShadowSlider
-        handleChange={handleValueChange}
-        name={"width"}
-        label={"Width"}
-        defaultVal={[containerProps.width]}
-        max={300}
-        min={0}
-      />
-      <ShadowSlider
-        handleChange={handleValueChange}
-        name={"height"}
-        label={"Height"}
-        defaultVal={[containerProps.height]}
-        max={300}
-        min={0}
-      />
-      <ShadowSlider
-        handleChange={handleValueChange}
-        name={"borderRadius"}
-        label={"Border radius"}
-        defaultVal={[containerProps.borderRadius]}
-        max={200}
-        min={0}
-      />
-      <CodeColumn />
+      <Tabs defaultValue="code">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="boxProperties">Box Properties </TabsTrigger>
+          <TabsTrigger value="code">Code</TabsTrigger>
+        </TabsList>
+        <TabsContent value="boxProperties" className="space-y-5 py-4">
+          <ColorPicker
+            name={"Background Color"}
+            itemKey={"backgroundColor"}
+            defaultColor={containerProps.backgroundColor}
+            handleChange={handleValueChange}
+          />
+          <ColorPicker
+            name={"Canvas Color"}
+            itemKey={"canvasColor"}
+            defaultColor={containerProps.canvasColor}
+            handleChange={handleValueChange}
+          />
+          <ShadowSlider
+            handleChange={handleValueChange}
+            name={"width"}
+            label={"Width"}
+            defaultVal={[containerProps.width]}
+            max={300}
+            min={0}
+          />
+          <ShadowSlider
+            handleChange={handleValueChange}
+            name={"height"}
+            label={"Height"}
+            defaultVal={[containerProps.height]}
+            max={300}
+            min={0}
+          />
+          <ShadowSlider
+            handleChange={handleValueChange}
+            name={"borderRadius"}
+            label={"Border radius"}
+            defaultVal={[containerProps.borderRadius]}
+            max={200}
+            min={0}
+          />
+        </TabsContent>
+        <TabsContent value="code">
+          <CodeColumn />
+        </TabsContent>
+      </Tabs>
     </section>
   );
 };
 
-export default BoxPropsColumn;
+export default BoxPropsColumn1;

@@ -14,6 +14,7 @@ interface IColorPickerProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 function ColorPicker({
+  className,
   itemKey,
   name = "color",
   defaultColor = "#000000",
@@ -28,7 +29,7 @@ function ColorPicker({
   }, [colorValue]);
 
   return (
-    <div className="">
+    <div className={className}>
       <label htmlFor={itemKey} className="text-sm mt-2">
         {name}
       </label>
