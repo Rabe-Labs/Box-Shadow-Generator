@@ -39,13 +39,13 @@ const CodeColumn = () => {
     background-color: ${contextState.containerProps.backgroundColor};
  }`;
 
-    const stringifiedTailwindStyles = `.box{
+    const stringifiedTailwindStyles = `.box {
     @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}] 
       w-[${contextState.containerProps.width}px] h-[${
       contextState.containerProps.height
-    }px] rounded-[${contextState.containerProps.borderRadius}] bg-[${
-      contextState.containerProps.backgroundColor
-    }]
+    }px] rounded-[${
+      contextState.containerProps.borderRadius
+    }px] bg-[${contextState.containerProps.backgroundColor.replace(/ /g, "")}]
   }`;
 
     setCssSnippet(
@@ -89,7 +89,7 @@ const CodeColumn = () => {
           </div>
 
           <Highlighter
-            language="css"
+            language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
             className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]"
           >

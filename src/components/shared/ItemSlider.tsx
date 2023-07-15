@@ -7,6 +7,7 @@ import {
 } from "@/context/shadowContainerContext.types";
 
 interface IShadowSliderProps<T> {
+  index ?: string;
   defaultVal: number[];
   min: number;
   max: number;
@@ -35,11 +36,12 @@ const ShadowSlider = <T extends object>({
     <div className="space-y-4">
       <div>
         <div className="flex justify-between items-center">
-          <label htmlFor="slider" className="text-[15px]">
+          <label htmlFor={name} className="text-[15px]">
             {label}
           </label>
           <div className="flex gap-1 items-center">
             <input
+              id={name}
               value={sliderValue[0]}
               onChange={(e) => {
                 if (name === "blurRadius" && Number(e.target.value) < 0) {
