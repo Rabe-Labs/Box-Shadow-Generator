@@ -61,7 +61,7 @@ const CodeColumn = () => {
         if (val === "vanillaCSS" || val === "tailwind") setCssMode(val);
       }}
       defaultValue={cssMode}
-      className="w-full mb-3 flex flex-col gap-4"
+      className="w-full mb-3 flex flex-col gap-2"
     >
       <TabsContent value={cssMode}>
         <div
@@ -88,9 +88,25 @@ const CodeColumn = () => {
           {cssSnippet}
         </Highlighter>
       </TabsContent>{" "}
-      <TabsList className="h-11 w-fit ml-auto px-2">
-        <TabsTrigger value="vanillaCSS">Vanilla CSS</TabsTrigger>
-        <TabsTrigger value="tailwind">Tailwind </TabsTrigger>
+      <TabsList className="h-11 w-fit ml-auto p-0 py-0 bg-transparent rounded-none">
+        <TabsTrigger
+          value="vanillaCSS"
+          className={cn(
+            "py-1 text-[0.8rem] rounded-sm",
+            cssMode === "vanillaCSS" ? "text-[#38bdf8]" : "text-[#F3E5AB]"
+          )}
+        >
+          Vanilla CSS
+        </TabsTrigger>
+        <TabsTrigger
+          value="tailwind"
+          className={cn(
+            "py-1 text-[0.8rem] rounded-sm focus-visible:text-[#38bdf8]",
+            cssMode === "vanillaCSS" ? "text-[#38bdf8]" : "text-[#38bdf8]"
+          )}
+        >
+          Tailwind{" "}
+        </TabsTrigger>
       </TabsList>
     </Tabs>
   );

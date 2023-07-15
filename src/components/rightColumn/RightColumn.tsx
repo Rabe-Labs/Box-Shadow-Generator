@@ -1,17 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
-import ColumnTitle from "../shared/ColumnTitle";
 import useShadowContainer from "@/hooks/useShadowContainer";
 import ColorPicker from "../shared/ColorPicker";
 import { IContainerProps } from "@/context/shadowContainerContext.types";
 import ShadowSlider from "../shared/ItemSlider";
-import { cn, getAllBoxShadows } from "@/lib/utils";
-import { Minus, Scaling, X } from "lucide-react";
 import "highlight.js/styles/github.css";
 import useCopy from "use-copy";
 
 import { Highlighter } from "../codeSection/Highlighter";
-import CodeColumn from "../codeSection/CodeSection";
+import CodeSection from "../codeSection/CodeSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 interface IBoxShadowProps {
@@ -21,7 +18,7 @@ interface IBoxShadowProps {
 
 interface IBoxPropsColumnProps {}
 
-const BoxPropsColumn1 = (props: IBoxPropsColumnProps) => {
+const RightColumn = (props: IBoxPropsColumnProps) => {
   const {
     contextState: { containerProps },
     setContainerProperty,
@@ -88,11 +85,11 @@ const BoxPropsColumn1 = (props: IBoxPropsColumnProps) => {
           />
         </TabsContent>
         <TabsContent value="code">
-          <CodeColumn />
+          <CodeSection />
         </TabsContent>
       </Tabs>
     </section>
   );
 };
 
-export default BoxPropsColumn1;
+export default RightColumn;

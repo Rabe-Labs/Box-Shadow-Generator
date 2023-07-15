@@ -1,6 +1,6 @@
-import BoxPropsColumn from "@/components/boxPropsColumn/BoxPropsColumn";
 import GridColumns from "@/components/columns/GridColumns";
 import Navbar from "@/components/header/Navbar";
+import RightColumn from "@/components/rightColumn/RightColumn";
 import PreviewColumn from "@/components/previewColumn/PreviewColumn";
 import ShadowColumn from "@/components/shadowColumn/ShadowColumn";
 import Image from "next/image";
@@ -17,7 +17,7 @@ export default function Home() {
           <PreviewColumn />
         </GridColumns>
         <GridColumns className="lg:col-span-1 lg:min-w-[300px]">
-          <BoxPropsColumn />
+          <RightColumn />
         </GridColumns>
       </div>
     </main>

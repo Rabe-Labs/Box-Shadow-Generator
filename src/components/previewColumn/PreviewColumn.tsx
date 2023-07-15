@@ -24,6 +24,7 @@ const PreviewColumn = () => {
 
     setBoxShadowStyle(shadowStyle);
   }, [contextState]);
+
   return (
     <section
       style={{ background: canvasColor }}
