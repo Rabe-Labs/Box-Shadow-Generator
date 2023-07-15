@@ -29,3 +29,22 @@ export const getAllBoxShadows = (boxShadowProps: IBoxShadowProps[]) =>
       return getBoxShadow(currentShadow).trim();
     })
     .join(",\n\t  ");
+
+const convertObjectToStringifiedTwCode = (boxShadowProps: IBoxShadowProps) => {
+  const inset = boxShadowProps.inset ? "inset " : "";
+  const tailwindCode = `${inset}${boxShadowProps.horizontalOffset}px ${
+    boxShadowProps.verticalOffset
+  }px ${boxShadowProps.blurRadius}px ${
+    boxShadowProps.spreadRadius
+  }px ${boxShadowProps.color.replace(/ /g, "")}`;
+  return tailwindCode.replace(/ /g, "_");
+};
+
+export const getAllTailwindBoxShadows = (boxShadowProps: IBoxShadowProps[]) => {
+  return boxShadowProps
+    .filter((currentShadow) => currentShadow.active)
+    .map((currentShadow) => {
+      return convertObjectToStringifiedTwCode(currentShadow).trim();
+    })
+    .join(",");
+};

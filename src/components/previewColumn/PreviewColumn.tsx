@@ -14,6 +14,7 @@ const PreviewColumn = () => {
 
   useEffect(() => {
     const boxShadow = getAllBoxShadows(contextState.boxShadows);
+    console.log(contextState.boxShadows);
 
     const shadowStyle: CSSProperties = {
       boxShadow: boxShadow,

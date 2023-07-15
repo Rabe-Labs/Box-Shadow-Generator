@@ -2,9 +2,9 @@ import { HTMLAttributes, useEffect, useState } from "react";
 import { Highlighter } from "./Highlighter";
 import useShadowContainer from "@/hooks/useShadowContainer";
 import useCopy from "use-copy";
-import { cn, getAllBoxShadows } from "@/lib/utils";
+import { cn, getAllBoxShadows, getAllTailwindBoxShadows } from "@/lib/utils";
 import ColumnTitle from "../shared/ColumnTitle";
-import { Minus, BookmarkPlus } from "lucide-react";
+import { Minus } from "lucide-react";
 import {
   atomOneDark,
   atomOneLight,
@@ -13,8 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 const CodeColumn = () => {
   type CSSType = "vanillaCSS" | "tailwind";
-  const [copied, copy, setCopied] = useCopy("");
   const [cssSnippet, setCssSnippet] = useState<string>("");
+  const [copied, copy, setCopied] = useCopy(cssSnippet);
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
 
   const { contextState } = useShadowContainer();
@@ -40,7 +40,12 @@ const CodeColumn = () => {
  }`;
 
     const stringifiedTailwindStyles = `.box{
-      @apply 
+    @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}] 
+      w-[${contextState.containerProps.width}px] h-[${
+      contextState.containerProps.height
+    }px] rounded-[${contextState.containerProps.borderRadius}] bg-[${
+      contextState.containerProps.backgroundColor
+    }]
   }`;
 
     setCssSnippet(
