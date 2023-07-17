@@ -1,4 +1,4 @@
-import { IBoxShadowProps } from "@/components/shadowColumn/shadow.types";
+import { IBoxShadowProps } from "@/components/leftColumn/shadow.types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

@@ -1,7 +1,7 @@
 "use client";
 import { IContainerProps } from "@/context/shadowContainerContext.types";
 import { HTMLAttributes, useEffect, useState } from "react";
-import { IBoxShadowProps } from "../shadowColumn/shadow.types";
+import { IBoxShadowProps } from "../leftColumn/shadow.types";
 
 interface IColorPickerProps extends HTMLAttributes<HTMLDivElement> {
   name?: string;

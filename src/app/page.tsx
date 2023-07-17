@@ -2,12 +2,14 @@ import GridColumns from "@/components/columns/GridColumns";
 import Navbar from "@/components/header/Navbar";
 import RightColumn from "@/components/rightColumn/RightColumn";
 import PreviewColumn from "@/components/previewColumn/PreviewColumn";
-import ShadowColumn from "@/components/shadowColumn/ShadowColumn";
+import ShadowColumn from "@/components/leftColumn/ShadowColumn";
 import Image from "next/image";
+import MainDialog from "@/components/shared/Dialog";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative">
+      <MainDialog />
       <Navbar />
       <div className="grid grid-cols-1 lg:grid-cols-[repeat(5,minmax(auto,1fr))] gap-1 h-[calc(100vh-94px)]">
         <GridColumns className="lg:min-w-[270px]">

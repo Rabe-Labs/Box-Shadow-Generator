@@ -6,7 +6,7 @@ import {
   IShadowContainerContext,
 } from "./shadowContainerContext.types";
 import { nanoid } from "nanoid";
-import { IBoxShadowProps } from "@/components/shadowColumn/shadow.types";
+import { IBoxShadowProps } from "@/components/leftColumn/shadow.types";
 
 export const ShadowContainerContext = createContext<IShadowContainerContext>(
   {} as IShadowContainerContext

@@ -1,13 +1,13 @@
 import { ChangeEvent, useState, useEffect } from "react";
 import { Slider } from "../ui/slider";
-import { IBoxShadowProps } from "../shadowColumn/shadow.types";
+import { IBoxShadowProps } from "../leftColumn/shadow.types";
 import {
   IContainerProps,
   ShadowKey,
 } from "@/context/shadowContainerContext.types";
 
 interface IShadowSliderProps<T> {
-  index ?: string;
+  index?: string;
   defaultVal: number[];
   min: number;
   max: number;

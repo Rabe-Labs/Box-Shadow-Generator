@@ -3,6 +3,7 @@ import useShadowContainer from "@/hooks/useShadowContainer";
 import { cn, getAllBoxShadows } from "@/lib/utils";
 import { CSSProperties, useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Extend } from "@/assets/icons/icons";
 
 const PreviewColumn = () => {
   const { contextState } = useShadowContainer();
@@ -33,7 +34,6 @@ const PreviewColumn = () => {
       )}
     >
       <div style={{ ...containerProps, ...boxShadowStyle }} />
-
       <Badge className="absolute top-4 left-4"> Preview </Badge>
     </section>
   );
