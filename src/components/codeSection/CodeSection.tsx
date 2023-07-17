@@ -26,11 +26,11 @@ const CodeColumn = () => {
   const { contextState } = useShadowContainer();
 
   const {
-    modalState: { isOpen, type },
+    modalState,
+    modalType,
     handleModalStatusChange,
+    handleModalTypeChange,
   } = useModal();
-
-  console.log({ isOpen, type });
 
   useEffect(() => {
     const AllBoxShadows = getAllBoxShadows(contextState.boxShadows);
@@ -95,12 +95,15 @@ const CodeColumn = () => {
           >
             <div className="flex justify-between w-full">
               <span
-                onClick={() => handleModalStatusChange("code")}
+                onClick={() => {
+                  handleModalStatusChange();
+                  handleModalTypeChange("code");
+                }}
                 className="text-slate-500 flex items-center 
             justify-center cursor-pointer transition-colors
              hover:bg-slate-500/20 rounded-full p-1"
               >
-                {!isOpen ? (
+                {!modalState ? (
                   <ZoomIn className="h-4 w-4" />
                 ) : (
                   <ZoomOut className="h-4 w-4" />

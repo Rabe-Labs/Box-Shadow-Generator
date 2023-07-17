@@ -5,9 +5,12 @@ import { Button } from "../ui/button";
 import { BookMarked, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import useModal from "@/hooks/useModal";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const { handleModalStatusChange, handleModalTypeChange } = useModal();
 
   return (
     <header className="mx-auto px-4 py-5 flex justify-between items-center border-b-2 border-b-gray-200 relative">
@@ -38,6 +41,10 @@ const Navbar = () => {
             >
               <li className="inline-block">
                 <Button
+                  onClick={() => {
+                    handleModalStatusChange();
+                    handleModalTypeChange("save");
+                  }}
                   variant="link"
                   className="flex items-center gap-1 text-sm sm:text-base"
                 >
@@ -46,6 +53,10 @@ const Navbar = () => {
               </li>
               <li className="inline-block">
                 <Button
+                  onClick={() => {
+                    handleModalStatusChange();
+                    handleModalTypeChange("auth");
+                  }}
                   variant="auth"
                   size="md"
                   className="w-full text-sm sm:text-base"
@@ -60,6 +71,10 @@ const Navbar = () => {
         <ul className="hidden lg:flex justify-center items-center gap-4">
           <li className="inline-block">
             <Button
+              onClick={() => {
+                handleModalStatusChange();
+                handleModalTypeChange("save");
+              }}
               variant={"link"}
               className="flex items-center gap-1 text-sm sm:text-base"
             >
@@ -67,7 +82,14 @@ const Navbar = () => {
             </Button>
           </li>
           <li>
-            <Button variant="auth" size="md">
+            <Button
+              onClick={() => {
+                handleModalStatusChange();
+                handleModalTypeChange("auth");
+              }}
+              variant="auth"
+              size="md"
+            >
               Sign in
             </Button>
           </li>
