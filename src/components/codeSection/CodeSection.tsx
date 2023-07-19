@@ -123,7 +123,7 @@ const CodeColumn = () => {
           <Highlighter
             language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
-            className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]"
+            className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] overflow-hidden"
           >
             {cssSnippet}
           </Highlighter>

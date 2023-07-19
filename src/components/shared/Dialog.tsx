@@ -35,16 +35,11 @@ function getModalComponent(modalType: ModalType) {
 }
 
 export function MainDialog() {
-  const {
-    modalState,
-    modalType,
-    handleModalStatusChange,
-    handleModalTypeChange,
-  } = useModal();
+  const { modalState, modalType, handleModalStatusChange } = useModal();
 
   return (
     <Dialog onOpenChange={handleModalStatusChange} open={modalState}>
-      <DialogContent className={cn("bg-[#f9fafb]")}>
+      <DialogContent className={cn("bg-[#f9fafb] rounded-sm overflow-x-auto")}>
         {getModalComponent(modalType)}
       </DialogContent>
     </Dialog>
