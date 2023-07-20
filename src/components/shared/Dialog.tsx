@@ -28,7 +28,7 @@ function getModalComponent(modalType: ModalType) {
     case "save":
       return <Saves />;
     case "code":
-      return <CodeSection />;
+      return <CodeSection className="mt-6" />;
     default:
       return null; // Return null or a default component if the type doesn't match any cases
   }

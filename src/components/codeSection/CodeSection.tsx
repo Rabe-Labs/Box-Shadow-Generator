@@ -18,7 +18,8 @@ import MainDialog from "../shared/Dialog";
 import { DialogContext } from "@/context/DialogContext";
 import useModal from "@/hooks/useModal";
 
-const CodeColumn = () => {
+interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {}
+const CodeColumn = ({ className }: ICodeColumnProps) => {
   type CSSType = "vanillaCSS" | "tailwind";
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
@@ -86,7 +87,7 @@ const CodeColumn = () => {
         defaultValue={cssMode}
         className="w-full mb-3 flex flex-col gap-2"
       >
-        <TabsContent value={cssMode}>
+        <TabsContent value={cssMode} className={className}>
           <div
             className={cn(
               "w-full h-9 flex items-center justify-between px-2 rounded-t-md",
