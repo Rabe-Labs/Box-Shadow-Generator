@@ -4,7 +4,8 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 
 interface IHighlighterProps extends HTMLAttributes<HTMLDivElement> {
   language: string;
-  theme: string;
+  children: string | string[];
+  theme: any;
 }
 
 export const Highlighter = ({

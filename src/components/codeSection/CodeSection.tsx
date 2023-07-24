@@ -18,20 +18,18 @@ import MainDialog from "../shared/Dialog";
 import { DialogContext } from "@/context/DialogContext";
 import useModal from "@/hooks/useModal";
 
-interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {}
-const CodeColumn = ({ className }: ICodeColumnProps) => {
+interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
+  highlighterCSS?: string;
+}
+const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   type CSSType = "vanillaCSS" | "tailwind";
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [value, copy] = useCopyToClipboard();
   const { contextState } = useShadowContainer();
 
-  const {
-    modalState,
-    modalType,
-    handleModalStatusChange,
-    handleModalTypeChange,
-  } = useModal();
+  const { modalState, handleModalStatusChange, handleModalTypeChange } =
+    useModal();
 
   useEffect(() => {
     const AllBoxShadows = getAllBoxShadows(contextState.boxShadows);
@@ -124,7 +122,10 @@ const CodeColumn = ({ className }: ICodeColumnProps) => {
           <Highlighter
             language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
-            className="w-full scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] overflow-hidden"
+            className={cn(
+              "scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]",
+              highlighterCSS
+            )}
           >
             {cssSnippet}
           </Highlighter>

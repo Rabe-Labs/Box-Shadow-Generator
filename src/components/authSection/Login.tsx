@@ -2,11 +2,13 @@ import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
 
-type Props = {};
+type Props = {
+  className?: string;
+};
 
-const Login = (props: Props) => {
+const Login = ({ className }: Props) => {
   return (
-    <section className="">
+    <section className={className}>
       <h2 className="text-xl my-4"> Sign in with the Following: </h2>
       <div className="flex flex-col gap-2">
         <div className="flex items-center">

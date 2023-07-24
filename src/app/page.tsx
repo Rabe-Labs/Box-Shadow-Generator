@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <main className="relative">
       <MainDialog />
+
       <Navbar />
       <div className="grid grid-cols-1 lg:grid-cols-[repeat(5,minmax(auto,1fr))] gap-1 h-[calc(100vh-94px)]">
         <GridColumns className="lg:min-w-[270px]">
