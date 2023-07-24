@@ -1,7 +1,7 @@
 import ShadowProvider from "@/context/shadowContainerContext";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
-import AuthContext from "@/context/AuthContext";
+import NextAuthProvider from "@/context/AuthContext";
 import { DialogContextProvider } from "@/context/DialogContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthContext>
+        <NextAuthProvider>
           <DialogContextProvider>
             <ShadowProvider>{children}</ShadowProvider>
           </DialogContextProvider>
-        </AuthContext>
+        </NextAuthProvider>
       </body>
     </html>
   );

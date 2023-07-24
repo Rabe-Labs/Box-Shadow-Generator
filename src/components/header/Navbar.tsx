@@ -6,11 +6,13 @@ import { BookMarked, Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import useModal from "@/hooks/useModal";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const { handleModalStatusChange, handleModalTypeChange } = useModal();
+  const { status } = useSession();
 
   return (
     <header className="mx-auto px-4 py-5 flex justify-between items-center border-b-2 border-b-gray-200 relative">
@@ -52,17 +54,22 @@ const Navbar = () => {
                 </Button>
               </li>
               <li className="inline-block">
-                <Button
-                  onClick={() => {
-                    handleModalStatusChange();
-                    handleModalTypeChange("auth");
-                  }}
-                  variant="auth"
-                  size="md"
-                  className="w-full text-sm sm:text-base"
-                >
-                  Sign in
-                </Button>
+                {status === "authenticated" ? (
+                  <Button onClick={() => signOut()} variant="auth" size="md">
+                    Sign out
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      handleModalStatusChange();
+                      handleModalTypeChange("auth");
+                    }}
+                    variant="auth"
+                    size="md"
+                  >
+                    Sign in
+                  </Button>
+                )}
               </li>
             </ul>
           </PopoverContent>
@@ -82,16 +89,22 @@ const Navbar = () => {
             </Button>
           </li>
           <li>
-            <Button
-              onClick={() => {
-                handleModalStatusChange();
-                handleModalTypeChange("auth");
-              }}
-              variant="auth"
-              size="md"
-            >
-              Sign in
-            </Button>
+            {status === "authenticated" ? (
+              <Button onClick={() => signOut()} variant="auth" size="md">
+                Sign out
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  handleModalStatusChange();
+                  handleModalTypeChange("auth");
+                }}
+                variant="auth"
+                size="md"
+              >
+                Sign in
+              </Button>
+            )}
           </li>
         </ul>
       </nav>

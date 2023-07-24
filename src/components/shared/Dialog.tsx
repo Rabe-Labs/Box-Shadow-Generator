@@ -8,12 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Button } from "../ui/button";
-import { ZoomIn } from "lucide-react";
-import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { Highlighter } from "../codeSection/Highlighter";
 import CodeSection from "../codeSection/CodeSection";
-import { DialogContext } from "@/context/DialogContext";
 import { cn } from "@/lib/utils";
 import Login from "../authSection/Login";
 import Saves from "../savesSection/Saves";
