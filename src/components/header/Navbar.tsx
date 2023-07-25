@@ -7,9 +7,12 @@ import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import useModal from "@/hooks/useModal";
 import { signOut, useSession } from "next-auth/react";
+import UserInfo, { UserInfoSm } from "./UserInfo";
+import { Separator } from "../ui/separator";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isAvatarPopover, setIsAvatarPopover] = useState(false);
 
   const { handleModalStatusChange, handleModalTypeChange } = useModal();
   const { status } = useSession();
@@ -20,6 +23,7 @@ const Navbar = () => {
         <span className="p-1 bg-black text-white rounded-sm">Box</span> Shadow.
       </h1>
       <nav>
+        {/* SMALLER SCREEN */}
         <Popover onOpenChange={() => setIsNavOpen((prev) => !prev)}>
           <PopoverTrigger asChild>
             <Button
@@ -41,23 +45,25 @@ const Navbar = () => {
             py-3 px-4 z-50 bg-white shadow-md rounded-sm sidebar__animate`
               )}
             >
+              {/* SAVES SM */}
               <li className="inline-block">
                 <Button
                   onClick={() => {
                     handleModalStatusChange();
                     handleModalTypeChange("save");
                   }}
-                  variant="link"
-                  className="flex items-center gap-1 text-sm sm:text-base"
+                  variant={"link"}
+                  className="flex items-center gap-1 text-sm h-6"
                 >
-                  Saves
+                  <BookMarked size="1.1em" /> Saves
                 </Button>
               </li>
+              <Separator className="my-1" />
+
+              {/* AVATAR SM */}
               <li className="inline-block">
                 {status === "authenticated" ? (
-                  <Button onClick={() => signOut()} variant="auth" size="md">
-                    Sign out
-                  </Button>
+                  <UserInfoSm />
                 ) : (
                   <Button
                     onClick={() => {
@@ -75,6 +81,7 @@ const Navbar = () => {
           </PopoverContent>
         </Popover>
 
+        {/* LARGER SCREEN */}
         <ul className="hidden lg:flex justify-center items-center gap-4">
           <li className="inline-block">
             <Button
@@ -90,9 +97,7 @@ const Navbar = () => {
           </li>
           <li>
             {status === "authenticated" ? (
-              <Button onClick={() => signOut()} variant="auth" size="md">
-                Sign out
-              </Button>
+              <UserInfo />
             ) : (
               <Button
                 onClick={() => {
