@@ -8,10 +8,9 @@ import { Separator } from "../ui/separator";
 
 const UserInfo = () => {
   const { data: session } = useSession();
-  const [isAvatarPopover, setIsAvatarPopover] = useState(false);
 
   return (
-    <Popover onOpenChange={() => setIsAvatarPopover((prev) => !prev)}>
+    <Popover>
       <PopoverTrigger asChild>
         <Avatar>
           {session?.user?.image && <AvatarImage src={session?.user?.image} />}
