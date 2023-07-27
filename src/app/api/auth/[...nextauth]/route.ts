@@ -1,10 +1,10 @@
-import NextAuth from "next-auth/next";
+import NextAuth, { AuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import { connectMongoDB } from "@/lib/mongodb";
 import User from "@/models/user";
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
@@ -16,12 +16,33 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account }: { user: any; account: any }) {
       if (account?.provider === "google" || account?.provider === "github") {
         const { name, email } = user;
-      }
 
-      // const exisitingEmail = await User.findOne({ email });
+        try {
+          await connectMongoDB();
+          const userExists = await User.findOne({ email });
+          if (!userExists) {
+            const res = await fetch("http://localhost:3000/api/user", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name,
+                email,
+              }),
+            });
+
+            if (res.ok) {
+              return user;
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
 
       return user;
     },
@@ -31,6 +52,8 @@ const handler = NextAuth({
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
