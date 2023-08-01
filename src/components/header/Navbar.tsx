@@ -12,10 +12,10 @@ import { Separator } from "../ui/separator";
 
 const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const [isAvatarPopover, setIsAvatarPopover] = useState(false);
 
   const { handleModalStatusChange, handleModalTypeChange } = useModal();
   const { status } = useSession();
+  const isLoading = status === "loading";
 
   return (
     <header className="mx-auto px-4 py-5 flex justify-between items-center border-b-2 border-b-gray-200 relative">

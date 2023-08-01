@@ -5,7 +5,7 @@ import useShadowContainer from "@/hooks/useShadowContainer";
 import useCopy from "use-copy";
 import { cn, getAllBoxShadows, getAllTailwindBoxShadows } from "@/lib/utils";
 import ColumnTitle from "../shared/ColumnTitle";
-import { Minus, ZoomIn, ZoomOut } from "lucide-react";
+import { Minus, Save, ZoomIn, ZoomOut } from "lucide-react";
 import {
   atomOneDark,
   atomOneLight,
@@ -17,6 +17,7 @@ import { Dialog } from "../ui/dialog";
 import MainDialog from "../shared/Dialog";
 import { DialogContext } from "@/context/DialogContext";
 import useModal from "@/hooks/useModal";
+import { Button } from "../ui/button";
 
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
@@ -153,6 +154,9 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
           </TabsTrigger>
         </TabsList>
       </Tabs>
+      <Button className="px-4 w-40 flex gap-2 mx-auto h-9 text-sm bg-gray-400 hover:bg-gray-400/80">
+        <Save className="h-4 w-4" /> Save
+      </Button>
     </>
   );
 };

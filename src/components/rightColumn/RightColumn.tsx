@@ -10,6 +10,7 @@ import useCopy from "use-copy";
 import { Highlighter } from "../codeSection/Highlighter";
 import CodeSection from "../codeSection/CodeSection";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import { Button } from "../ui/button";
 
 interface IBoxShadowProps {
   name: keyof IBoxShadowProps;
@@ -31,13 +32,6 @@ const RightColumn = (props: IBoxPropsColumnProps) => {
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [copied, copy, setCopied] = useCopy(cssSnippet);
   const { contextState } = useShadowContainer();
-  const copyText = () => {
-    copy();
-
-    setTimeout(() => {
-      setCopied(false);
-    }, 3000);
-  };
 
   return (
     <section className="flex flex-col gap-6">
