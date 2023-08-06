@@ -48,6 +48,7 @@ const Navbar = () => {
               {/* SAVES SM */}
               <li className="inline-block">
                 <Button
+                  disabled={isLoading}
                   onClick={() => {
                     handleModalStatusChange();
                     handleModalTypeChange("save");
@@ -66,14 +67,23 @@ const Navbar = () => {
                   <UserInfoSm />
                 ) : (
                   <Button
+                    disabled={isLoading}
                     onClick={() => {
                       handleModalStatusChange();
                       handleModalTypeChange("auth");
                     }}
-                    variant="auth"
+                    variant="default"
                     size="md"
+                    className="h-10"
                   >
-                    Sign in
+                    {isLoading ? (
+                      <div className="flex gap-2">
+                        <div id="loading"></div>
+                        Loading
+                      </div>
+                    ) : (
+                      "Sign in"
+                    )}
                   </Button>
                 )}
               </li>
@@ -85,6 +95,7 @@ const Navbar = () => {
         <ul className="hidden lg:flex justify-center items-center gap-4">
           <li className="inline-block">
             <Button
+              disabled={isLoading}
               onClick={() => {
                 handleModalStatusChange();
                 handleModalTypeChange("save");
@@ -100,14 +111,22 @@ const Navbar = () => {
               <UserInfo />
             ) : (
               <Button
+                disabled={isLoading}
                 onClick={() => {
                   handleModalStatusChange();
                   handleModalTypeChange("auth");
                 }}
-                variant="auth"
+                variant="default"
                 size="md"
               >
-                Sign in
+                {isLoading ? (
+                  <div className="flex gap-2">
+                    <div id="loading"></div>
+                    Loading
+                  </div>
+                ) : (
+                  "Sign in"
+                )}
               </Button>
             )}
           </li>

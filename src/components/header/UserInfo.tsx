@@ -1,6 +1,6 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -14,7 +14,9 @@ const UserInfo = () => {
       <PopoverTrigger asChild>
         <Avatar>
           {session?.user?.image && <AvatarImage src={session?.user?.image} />}
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>
+            {session?.user?.name?.charAt(0).toUpperCase()}
+          </AvatarFallback>
         </Avatar>
       </PopoverTrigger>
       <PopoverContent
@@ -24,7 +26,6 @@ const UserInfo = () => {
         <h3> Hello, {session?.user?.name?.split(" ")[0]} 👋🏼 </h3>
         <Button
           onClick={() => signOut()}
-          variant="auth"
           size="md"
           className="w-full h-10 text-sm"
         >

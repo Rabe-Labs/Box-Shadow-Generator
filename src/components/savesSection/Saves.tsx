@@ -1,14 +1,27 @@
 import { useSession } from "next-auth/react";
-import React from "react";
+import { useEffect } from "react";
 import { Button } from "../ui/button";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
 
 const Saves = () => {
-  const { status } = useSession();
+  const { status, data: session } = useSession();
   const { handleModalStatusChange, handleModalTypeChange } = useModal();
 
   const isAuthenticated = status === "authenticated";
+
+  const userEmail = session?.user?.email || "";
+
+  useEffect(() => {
+    async function getData() {
+      const response = await fetch(
+        `http://localhost:3000/api/save/${userEmail}`
+      );
+      const data = await response.json();
+      console.log("Save Data:", data);
+    }
+    getData();
+  }, [userEmail]);
 
   return (
     <div>

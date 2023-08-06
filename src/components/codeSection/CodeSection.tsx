@@ -18,6 +18,7 @@ import MainDialog from "../shared/Dialog";
 import { DialogContext } from "@/context/DialogContext";
 import useModal from "@/hooks/useModal";
 import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
 
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
@@ -28,6 +29,9 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [value, copy] = useCopyToClipboard();
   const { contextState } = useShadowContainer();
+  const { status, data: session } = useSession();
+
+  const userEmail = session?.user?.email || "";
 
   const { modalState, handleModalStatusChange, handleModalTypeChange } =
     useModal();
@@ -77,6 +81,23 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
     return stringifiedValue;
   };
 
+  const handleSave = async () => {
+    const boxShadows = contextState.boxShadows;
+
+    const response = await fetch(
+      `http://localhost:3000/api/save/${userEmail}`,
+      {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          boxShadows,
+        }),
+      }
+    );
+  };
+
   return (
     <>
       <Tabs
@@ -109,14 +130,23 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
                   <ZoomOut className="h-4 w-4" />
                 )}
               </span>
-              <span
-                onClick={() => copy(copyToClipBoard())}
-                className="text-slate-500 flex items-center 
+              <div className="flex items-center gap-2">
+                <Button
+                  className="text-slate-500 flex items-center p-2 h-6 gap-1 hover:text-slate-500/70"
+                  onClick={handleSave}
+                >
+                  <Save className="h-4 w-4" />
+                  <span className="text-xs sm:text-sm"> Save</span>
+                </Button>
+                <span
+                  onClick={() => copy(copyToClipBoard())}
+                  className="text-slate-500 flex items-center 
             justify-center cursor-pointer transition-colors
              hover:bg-slate-500/20 rounded-full p-1"
-              >
-                <Clipboard className="h-4 w-4" />
-              </span>
+                >
+                  <Clipboard className="h-4 w-4" />
+                </span>
+              </div>
             </div>
           </div>
 
@@ -154,9 +184,6 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
           </TabsTrigger>
         </TabsList>
       </Tabs>
-      <Button className="px-4 w-40 flex gap-2 mx-auto h-9 text-sm bg-gray-400 hover:bg-gray-400/80">
-        <Save className="h-4 w-4" /> Save
-      </Button>
     </>
   );
 };

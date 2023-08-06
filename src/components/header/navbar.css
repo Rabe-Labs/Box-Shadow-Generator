@@ -68,3 +68,19 @@
     top: 2.5rem;
   }
 }
+
+#loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spinBtn 1s ease-in-out infinite;
+}
+
+@keyframes spinBtn {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
