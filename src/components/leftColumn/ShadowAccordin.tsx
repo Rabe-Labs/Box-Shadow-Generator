@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from "react";
-import { IBoxShadowProps } from "./shadow.types";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
 import ColorPicker from "../shared/ColorPicker";
@@ -13,6 +12,7 @@ import {
 } from "../ui/accordion";
 import useShadowContainer from "@/hooks/useShadowContainer";
 import { cn } from "@/lib/utils";
+import { IBoxShadowProps } from "@/types";
 //import { camalize } from "@/lib/utils";
 
 interface IAccordinItemProps {

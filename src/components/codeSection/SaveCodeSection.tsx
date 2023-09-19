@@ -22,43 +22,33 @@ import { useSession } from "next-auth/react";
 
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
+  AllboxShadow?: any;
 }
-const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
+const SaveCodeSection = ({
+  className,
+  highlighterCSS,
+  AllboxShadow,
+}: ICodeColumnProps) => {
   type CSSType = "vanillaCSS" | "tailwind";
+
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
-  const [value, copy] = useCopyToClipboard();
-  const { contextState } = useShadowContainer();
-  const { status, data: session } = useSession();
 
-  const userEmail = session?.user?.email || "";
+  const [value, copy] = useCopyToClipboard();
 
   const { modalState, handleModalStatusChange, handleModalTypeChange } =
     useModal();
 
   useEffect(() => {
-    const allVanilleCSSBoxShadows = getAllBoxShadows(contextState.boxShadows);
-    const allTwCSSSBoxShadows = getAllTailwindBoxShadows(
-      contextState.boxShadows
-    );
+    const allVanilleCSSBoxShadows = getAllBoxShadows(AllboxShadow);
+    const allTwCSSSBoxShadows = getAllTailwindBoxShadows(AllboxShadow);
 
     const stringifiedVanilliaCssStyles = `.box {
     box-shadow: ${allVanilleCSSBoxShadows};
-     
-    /* box properties */
-    width: ${contextState.containerProps.width}px;
-    height: ${contextState.containerProps.height}px; 
-    border-radius: ${contextState.containerProps.borderRadius}px;
-    background-color: ${contextState.containerProps.backgroundColor};
- }`;
+  }`;
 
     const stringifiedTailwindStyles = `.box {
     @apply shadow-[${allTwCSSSBoxShadows}] 
-      w-[${contextState.containerProps.width}px] h-[${
-      contextState.containerProps.height
-    }px] rounded-[${
-      contextState.containerProps.borderRadius
-    }px] bg-[${contextState.containerProps.backgroundColor.replace(/ /g, "")}]
   }`;
 
     setCssSnippet(
@@ -66,40 +56,23 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
         ? stringifiedVanilliaCssStyles
         : stringifiedTailwindStyles
     );
-  }, [contextState, cssMode]);
+  }, [cssMode]);
 
-  const copyToClipBoard = () => {
-    const AllBoxShadows = getAllBoxShadows(contextState.boxShadows);
-    let stringifiedValue = ``;
-    if (cssMode === "vanillaCSS") {
-      stringifiedValue = `.box {
-        box-shadow: ${AllBoxShadows};
-     }`;
-    } else {
-      stringifiedValue = `.box {
-        @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}] 
-      }`;
-    }
+  // const copyToClipBoard = () => {
+  //   const AllBoxShadows = getAllBoxShadows(contextState.boxShadows);
+  //   let stringifiedValue = ``;
+  //   if (cssMode === "vanillaCSS") {
+  //     stringifiedValue = `.box {
+  //       box-shadow: ${AllBoxShadows};
+  //    }`;
+  //   } else {
+  //     stringifiedValue = `.box {
+  //       @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}]
+  //     }`;
+  //   }
 
-    return stringifiedValue;
-  };
-
-  const handleSave = async () => {
-    const boxShadows = contextState.boxShadows;
-
-    const response = await fetch(
-      `http://localhost:3000/api/save/${userEmail}`,
-      {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          boxShadows,
-        }),
-      }
-    );
-  };
+  //   return stringifiedValue;
+  // };
 
   return (
     <>
@@ -118,31 +91,9 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
             )}
           >
             <div className="flex justify-between w-full">
-              <span
-                onClick={() => {
-                  handleModalStatusChange();
-                  handleModalTypeChange("code");
-                }}
-                className="text-slate-500 flex items-center 
-            justify-center cursor-pointer transition-colors
-             hover:bg-slate-500/20 rounded-full p-1"
-              >
-                {!modalState ? (
-                  <ZoomIn className="h-4 w-4" />
-                ) : (
-                  <ZoomOut className="h-4 w-4" />
-                )}
-              </span>
               <div className="flex items-center gap-2">
-                <Button
-                  className="text-slate-500 flex items-center p-2 h-6 gap-1 hover:text-slate-500/70"
-                  onClick={handleSave}
-                >
-                  <Save className="h-4 w-4" />
-                  <span className="text-xs sm:text-sm"> Save</span>
-                </Button>
                 <span
-                  onClick={() => copy(copyToClipBoard())}
+                  //onClick={() => copy(copyToClipBoard())}
                   className="text-slate-500 flex items-center 
             justify-center cursor-pointer transition-colors
              hover:bg-slate-500/20 rounded-full p-1"
@@ -191,4 +142,4 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   );
 };
 
-export default CodeColumn;
+export default SaveCodeSection;

@@ -1,12 +1,12 @@
 "use client";
 import React, { createContext, useState } from "react";
+import { nanoid } from "nanoid";
 import {
+  IBoxShadowProps,
   IBoxShadowState,
   IContainerProps,
   IShadowContainerContext,
-} from "./shadowContainerContext.types";
-import { nanoid } from "nanoid";
-import { IBoxShadowProps } from "@/components/leftColumn/shadow.types";
+} from "@/types";
 
 export const ShadowContainerContext = createContext<IShadowContainerContext>(
   {} as IShadowContainerContext

@@ -6,7 +6,7 @@ import User from "@/models/user";
 
 export async function GET(req: NextApiRequest, res: any) {
   try {
-    //await connectMongoDB();
+    await connectMongoDB();
     const { email } = res.params; // Access the 'email' query parameter
     const user = await User.findOne({ email: email });
 
@@ -23,6 +23,8 @@ export async function GET(req: NextApiRequest, res: any) {
         { status: 200 }
       );
     }
+
+    //const boxShadowSave = allSaves.map()
 
     return NextResponse.json({ data: allSaves }, { status: 200 });
   } catch (e) {

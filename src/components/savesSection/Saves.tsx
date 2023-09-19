@@ -3,7 +3,9 @@ import { useEffect } from "react";
 import { Button } from "../ui/button";
 import useModal from "@/hooks/useModal";
 import Image from "next/image";
-
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import SavesAccordin from "./SavesAccordin";
 const Saves = () => {
   const { status, data: session } = useSession();
   const { handleModalStatusChange, handleModalTypeChange } = useModal();
@@ -12,16 +14,23 @@ const Saves = () => {
 
   const userEmail = session?.user?.email || "";
 
+  const [savedData, setSavedData] = useState<any>([]);
+
   useEffect(() => {
     async function getData() {
       const response = await fetch(
         `http://localhost:3000/api/save/${userEmail}`
       );
-      const data = await response.json();
-      console.log("Save Data:", data);
+      const jsonResponse = await response.json();
+      console.log("Save Data :-", jsonResponse.data);
+      setSavedData(jsonResponse.data);
     }
     getData();
   }, [userEmail]);
+
+  console.log("savedData", savedData);
+
+  //const { data, error, isLoading } = useQuery("savedData", getFacts);
 
   return (
     <div>
@@ -49,7 +58,27 @@ const Saves = () => {
         </div>
       ) : (
         <div>
-          <h2 className="text-lg text-left"> Your Saves! </h2>
+          <h2 className="text-lg text-left"> Your Saves!</h2>
+          <div> Total Saves: {savedData.length} </div>
+          <div>
+            {savedData.length > 0 ? (
+              savedData.map((data: any) => (
+                <div key={data._id}>
+                  <div>
+                    {/* PASS THE BOXSHADOWS ITSELF TO  */}
+                    {/* {data.boxShadows.map((boxShadow: any) => (
+                      <div key={boxShadow.id}>
+                        <p> {boxShadow.blurRadius}</p>
+                      </div>
+                    ))} */}
+                    <SavesAccordin boxShadows={data.boxShadows} />
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div></div>
+            )}
+          </div>
         </div>
       )}
     </div>

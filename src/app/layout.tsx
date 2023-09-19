@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import NextAuthProvider from "@/context/AuthContext";
 import { DialogContextProvider } from "@/context/DialogContext";
+import Provider from "@/components/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,11 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>
-          <DialogContextProvider>
-            <ShadowProvider>{children}</ShadowProvider>
-          </DialogContextProvider>
-        </NextAuthProvider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
