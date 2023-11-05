@@ -28,7 +28,7 @@ const Saves = () => {
     getData();
   }, [userEmail]);
 
-  console.log("savedData", savedData);
+  console.log("total saved Data", savedData);
 
   //const { data, error, isLoading } = useQuery("savedData", getFacts);
 
@@ -62,21 +62,20 @@ const Saves = () => {
           <div> Total Saves: {savedData.length} </div>
           <div>
             {savedData.length > 0 ? (
-              savedData.map((data: any) => (
+              savedData.map((data: any, index) => (
                 <div key={data._id}>
                   <div>
-                    {/* PASS THE BOXSHADOWS ITSELF TO  */}
-                    {/* {data.boxShadows.map((boxShadow: any) => (
-                      <div key={boxShadow.id}>
-                        <p> {boxShadow.blurRadius}</p>
-                      </div>
-                    ))} */}
-                    <SavesAccordin boxShadows={data.boxShadows} />
+                    <SavesAccordin
+                      setSavedData={setSavedData}
+                      boxShadows={data.boxShadows}
+                      boxId={data._id}
+                      index={index}
+                    />
                   </div>
                 </div>
               ))
             ) : (
-              <div></div>
+              <div> No shadows found </div>
             )}
           </div>
         </div>

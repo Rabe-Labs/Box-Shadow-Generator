@@ -9,17 +9,16 @@ import SaveCodeSection from "../codeSection/SaveCodeSection";
 
 type Props = {};
 
-const SavesAccordin = ({ boxShadows }: Props) => {
+const SavesAccordin = ({ boxShadows, boxId, index, setSavedData }: Props) => {
   return (
     <Accordion type="multiple" className="w-full">
       {boxShadows.length > 0 ? (
-        boxShadows.map((boxShadow, index) => (
-          <AccordinItem
-            index={index}
-            key={boxShadow.id}
-            boxShadow={boxShadow}
-          />
-        ))
+        <AccordinItem
+          index={index}
+          boxShadow={boxShadows}
+          boxId={boxId}
+          setSavedData={setSavedData}
+        />
       ) : (
         <div>
           <p className="text-sm text-center"> No Shadow Found </p>
@@ -29,14 +28,18 @@ const SavesAccordin = ({ boxShadows }: Props) => {
   );
 };
 
-const AccordinItem = ({ boxShadow, index }) => {
+const AccordinItem = ({ boxShadow, boxId, setSavedData, index }) => {
   return (
     <AccordionItem value={`shadow-${index + 1}`}>
       <AccordionTrigger> Save {index + 1} </AccordionTrigger>
       <AccordionContent>
         <div className="pb-2 space-y-4">
           <div className="flex items-center">
-            <SaveCodeSection AllboxShadow={boxShadow} />
+            <SaveCodeSection
+              AllboxShadow={boxShadow}
+              boxId={boxId}
+              setSavedData={setSavedData}
+            />
           </div>
         </div>
       </AccordionContent>

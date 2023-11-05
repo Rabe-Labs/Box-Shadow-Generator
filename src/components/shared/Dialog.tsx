@@ -41,8 +41,9 @@ export function MainDialog() {
     <Dialog onOpenChange={handleModalStatusChange} open={modalState}>
       <DialogContent
         className={cn(
-          "bg-[#f9fafb] rounded-sm w-[96%] sm:w-full",
-          modalType === "code" && "flex flex-col"
+          "bg-[#f9fafb] rounded-sm w-[96%] sm:w-full max-h-[90%] overflow-auto",
+          modalType === "code" && "flex flex-col",
+          modalType === "save" && "flex flex-col"
         )}
       >
         {getModalComponent(modalType)}
