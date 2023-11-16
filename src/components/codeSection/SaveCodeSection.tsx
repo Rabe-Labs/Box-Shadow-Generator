@@ -141,7 +141,7 @@ const SaveCodeSection = ({
             language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
             className={cn(
-              "scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]",
+              "scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] max-h-[400px]",
               highlighterCSS
             )}
           >

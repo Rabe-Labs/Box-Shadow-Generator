@@ -188,7 +188,8 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
             language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
             className={cn(
-              `scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] flex flex-col max-h-[500px] lg:max-h-[68vh] overflow-auto`,
+              `scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] scrollbar-corner-slate-800
+               max-h-[400px] lg:max-h-[60vh] overflow-auto`,
               highlighterCSS
             )}
           >
