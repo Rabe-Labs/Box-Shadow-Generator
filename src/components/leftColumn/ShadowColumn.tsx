@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Button } from "../ui/button";
 import ShadowAccordin from "./ShadowAccordin";
-import { IBoxShadowProps } from "./shadow.types";
 import { Plus } from "lucide-react";
 import useShadowContainer from "@/hooks/useShadowContainer";
 import ColumnTitle from "../shared/ColumnTitle";

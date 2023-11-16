@@ -59,7 +59,7 @@ const Saves = () => {
       ) : (
         <div>
           <h2 className="text-lg text-left"> Your Saves!</h2>
-          <div> Total Saves: {savedData.length} </div>
+          <div className="t"> Total Saves: {savedData.length} </div>
           <div>
             {savedData.length > 0 ? (
               savedData.map((data: any, index) => (
@@ -75,7 +75,12 @@ const Saves = () => {
                 </div>
               ))
             ) : (
-              <div> No shadows found </div>
+              <div>
+                <h3 className="text-center text-lg md:text-xl font-semibold mt-6 mb-2">
+                  {" "}
+                  No shadows found!
+                </h3>
+              </div>
             )}
           </div>
         </div>

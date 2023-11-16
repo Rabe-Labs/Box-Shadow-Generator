@@ -141,10 +141,10 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
         defaultValue={cssMode}
         className="w-full mb-3 flex flex-col gap-2"
       >
-        <TabsContent value={cssMode} className={className}>
+        <TabsContent value={cssMode} className={cn(className)}>
           <div
             className={cn(
-              "w-full h-9 flex items-center justify-between px-2 rounded-t-md",
+              "w-full h-9 flex items-center justify-between px-2 rounded-t-md ",
               "bg-[rgb(52,53,65)]"
             )}
           >
@@ -188,7 +188,7 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
             language={cssMode === "vanillaCSS" ? "css" : "postCSS"}
             theme={atomOneDark}
             className={cn(
-              "scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px]",
+              `scrollbar-thin	scrollbar-thumb-[#5b5c5e] scrollbar-rounded-[10px] flex flex-col max-h-[500px] lg:max-h-[68vh] overflow-auto`,
               highlighterCSS
             )}
           >

@@ -79,6 +79,7 @@ const RightColumn = (props: IBoxPropsColumnProps) => {
           />
         </TabsContent>
         <TabsContent value="code">
+          
           <CodeSection />
         </TabsContent>
       </Tabs>
