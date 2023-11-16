@@ -20,6 +20,8 @@ import useModal from "@/hooks/useModal";
 import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
 
+import toast from "react-hot-toast";
+
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
 }
@@ -28,6 +30,7 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [value, copy] = useCopyToClipboard();
+
   const { contextState } = useShadowContainer();
   const { status, data: session } = useSession();
 
@@ -80,6 +83,7 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
         @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}] 
       }`;
     }
+    toast.success("Copied to clipboard!");
 
     return stringifiedValue;
   };
@@ -87,10 +91,21 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   const handleSave = async () => {
     const boxShadows = contextState.boxShadows;
 
+    if (boxShadows.length === 0) {
+      toast.error("Add at least one layer before saving.", {
+        style: {
+          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+          padding: "0.6rem",
+        },
+      });
+
+      return;
+    }
+
     const response = await fetch(
       `http://localhost:3000/api/save/${userEmail}`,
       {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -99,6 +114,22 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
         }),
       }
     );
+
+    if (response.status === 200) {
+      toast.success("Saved", {
+        style: {
+          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+          padding: "0.6rem",
+        },
+      });
+    } else {
+      toast.error("Something went wrong", {
+        style: {
+          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+          padding: "0.6rem",
+        },
+      });
+    }
   };
 
   return (

@@ -19,6 +19,7 @@ import { DialogContext } from "@/context/DialogContext";
 import useModal from "@/hooks/useModal";
 import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
@@ -38,6 +39,7 @@ const SaveCodeSection = ({
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [isIconHovered, setIconHovered] = useState(false);
+  const [value, copy] = useCopyToClipboard();
 
   const { status, data: session } = useSession();
   const userEmail = session?.user?.email || "";
@@ -64,20 +66,22 @@ const SaveCodeSection = ({
     );
   }, [cssMode]);
 
-  //   const AllBoxShadows = getAllBoxShadows(contextState.boxShadows);
-  //   let stringifiedValue = ``;
-  //   if (cssMode === "vanillaCSS") {
-  //     stringifiedValue = `.box {
-  //       box-shadow: ${AllBoxShadows};
-  //    }`;
-  //   } else {
-  //     stringifiedValue = `.box {
-  //       @apply shadow-[${getAllTailwindBoxShadows(contextState.boxShadows)}]
-  //     }`;
-  //   }
+  const copyToClipBoard = () => {
+    let stringifiedValue = ``;
+    if (cssMode === "vanillaCSS") {
+      stringifiedValue = `.box {
+        box-shadow: ${getAllBoxShadows(AllboxShadow)};
+     }`;
+    } else {
+      stringifiedValue = `.box {
+        @apply shadow-[${getAllTailwindBoxShadows(AllboxShadow)}] 
+      }`;
+    }
 
-  //   return stringifiedValue;
-  // };
+    toast.success("Copied to clipboard!");
+
+    return stringifiedValue;
+  };
 
   function handleSaveDelete(boxId: string) {
     async function getData() {
@@ -121,7 +125,7 @@ const SaveCodeSection = ({
             <div className="flex justify-between w-full">
               <div className="flex items-center gap-2">
                 <span
-                  //onClick={() => copy(copyToClipBoard())}
+                  onClick={() => copy(copyToClipBoard())}
                   className="text-slate-500 flex items-center 
             justify-center cursor-pointer transition-colors
              hover:bg-slate-500/20 rounded-full p-1"

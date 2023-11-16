@@ -12,18 +12,12 @@ type Props = {};
 const SavesAccordin = ({ boxShadows, boxId, index, setSavedData }: Props) => {
   return (
     <Accordion type="multiple" className="w-full">
-      {boxShadows.length > 0 ? (
-        <AccordinItem
-          index={index}
-          boxShadow={boxShadows}
-          boxId={boxId}
-          setSavedData={setSavedData}
-        />
-      ) : (
-        <div>
-          <p className="text-sm text-center"> No Shadow Found </p>
-        </div>
-      )}
+      <AccordinItem
+        index={index}
+        boxShadow={boxShadows}
+        boxId={boxId}
+        setSavedData={setSavedData}
+      />
     </Accordion>
   );
 };
