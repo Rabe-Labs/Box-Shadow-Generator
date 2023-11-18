@@ -30,9 +30,11 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [value, copy] = useCopyToClipboard();
+  const [isLoading, setIsLoading] = useState(false);
 
   const { contextState } = useShadowContainer();
   const { status, data: session } = useSession();
+  const isAuthenticated = status === "authenticated";
 
   const userEmail = session?.user?.email || "";
 
@@ -90,6 +92,14 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
 
   const handleSave = async () => {
     const boxShadows = contextState.boxShadows;
+    setIsLoading(true);
+
+    if (!isAuthenticated) {
+      toast.error("Please login to save your code");
+      handleModalStatusChange();
+      handleModalTypeChange("auth");
+      return;
+    }
 
     if (boxShadows.length === 0) {
       toast.error("Add at least one layer before saving.", {
@@ -102,27 +112,42 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
       return;
     }
 
-    const response = await fetch(
-      `http://localhost:3000/api/save/${userEmail}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          boxShadows,
-        }),
-      }
-    );
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/save/${userEmail}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            boxShadows,
+          }),
+        }
+      );
 
-    if (response.status === 200) {
-      toast.success("Saved", {
-        style: {
-          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
-          padding: "0.6rem",
-        },
-      });
-    } else {
+      if (response.status === 200 && response.ok) {
+        toast.success("Saved", {
+          style: {
+            fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+            padding: "0.6rem",
+          },
+        });
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3500);
+      } else {
+        toast.error("Something went wrong", {
+          style: {
+            fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+            padding: "0.6rem",
+          },
+        });
+
+        throw new Error(`${response.status} ${response.statusText}`);
+      }
+    } catch (e) {
       toast.error("Something went wrong", {
         style: {
           fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
@@ -164,9 +189,18 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
                   <ZoomOut className="h-4 w-4" />
                 )}
               </span>
-              <div className="flex items-center gap-2">
+              <div
+                className={cn(
+                  "flex items-center gap-2 select-none",
+                  isLoading && "cursor-not-allowed"
+                )}
+              >
                 <Button
-                  className="text-slate-500 flex items-center p-2 h-6 gap-1 hover:text-slate-500/70"
+                  className={cn(
+                    "text-slate-500 flex items-center p-2 h-6 gap-1 hover:text-slate-500/70",
+                    isLoading && "cursor-not-allowed"
+                  )}
+                  disabled={isLoading}
                   onClick={handleSave}
                 >
                   <Save className="h-4 w-4" />

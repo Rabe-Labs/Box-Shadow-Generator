@@ -19,7 +19,7 @@ export default function Home() {
         <GridColumns className="h-[500px] lg:h-auto lg:col-span-3 p-0">
           <PreviewColumn />
         </GridColumns>
-        <GridColumns className="lg:col-span-1 lg:min-w-[300px] lg:max-h-[500px]">
+        <GridColumns className="lg:col-span-1 lg:min-w-[300px]">
           <RightColumn />
         </GridColumns>
       </div>

@@ -16,21 +16,29 @@ const Saves = () => {
 
   const [savedData, setSavedData] = useState<any>([]);
 
+  async function getData() {
+    const response = await fetch(`http://localhost:3000/api/save/${userEmail}`);
+    const jsonResponse = await response.json();
+    return jsonResponse.data;
+  }
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["saveData", userEmail],
+    queryFn: () => getData(),
+    enabled: !!userEmail, // Only fetch data if userEmail is truthy
+  });
+
   useEffect(() => {
-    async function getData() {
-      const response = await fetch(
-        `http://localhost:3000/api/save/${userEmail}`
-      );
-      const jsonResponse = await response.json();
-      console.log("Save Data :-", jsonResponse.data);
-      setSavedData(jsonResponse.data);
-    }
-    getData();
-  }, [userEmail]);
+    setSavedData(data);
+  }, [data]);
 
   console.log("total saved Data", savedData);
 
   //const { data, error, isLoading } = useQuery("savedData", getFacts);
+
+  if (isLoading) {
+    return <div> Loading... </div>;
+  }
 
   return (
     <div>
@@ -59,9 +67,9 @@ const Saves = () => {
       ) : (
         <div>
           <h2 className="text-lg text-left"> Your Saves!</h2>
-          <div className="t"> Total Saves: {savedData.length} </div>
+          <div className="t"> Total Saves: {savedData?.length}</div>
           <div>
-            {savedData.length > 0 ? (
+            {savedData?.length > 0 ? (
               savedData.map((data: any, index) => (
                 <div key={data._id}>
                   <div>
