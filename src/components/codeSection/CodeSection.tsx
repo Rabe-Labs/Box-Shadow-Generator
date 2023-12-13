@@ -21,6 +21,8 @@ import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
 
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 interface ICodeColumnProps extends HTMLAttributes<HTMLDivElement> {
   highlighterCSS?: string;
@@ -30,7 +32,7 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
   const [cssSnippet, setCssSnippet] = useState<string>("");
   const [cssMode, setCssMode] = useState<CSSType>("vanillaCSS");
   const [value, copy] = useCopyToClipboard();
-  const [isLoading, setIsLoading] = useState(false);
+  //const [isLoading, setIsLoading] = useState(false);
 
   const { contextState } = useShadowContainer();
   const { status, data: session } = useSession();
@@ -90,9 +92,10 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
     return stringifiedValue;
   };
 
-  const handleSave = async () => {
+  //! USE REACT QUERY INSTEAD
+
+  const handleSave = () => {
     const boxShadows = contextState.boxShadows;
-    setIsLoading(true);
 
     if (!isAuthenticated) {
       toast.error("Please login to save your code");
@@ -112,50 +115,65 @@ const CodeColumn = ({ className, highlighterCSS }: ICodeColumnProps) => {
       return;
     }
 
-    try {
-      const response = await fetch(
+    saveShadowMutation(boxShadows);
+  };
+
+  const { mutate: saveShadowMutation, isLoading } = useMutation({
+    mutationKey: ["saveShadow"],
+    retry: 4,
+    onMutate: () => {},
+    mutationFn: async (boxShadows) => {
+      // const response = await fetch(
+      //   `http://localhost:3000/api/save/${userEmail}`,
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       boxShadows,
+      //     }),
+      //   }
+      // );
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      const response = await axios.post(
         `http://localhost:3000/api/save/${userEmail}`,
         {
-          method: "POST",
+          boxShadows,
+        },
+        {
+          timeout: 6000,
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            boxShadows,
-          }),
         }
       );
+    },
+    onSuccess: () => {
+      toast.success("Saved", {
+        style: {
+          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+          padding: "0.6rem",
+        },
+      });
+    },
+    onError: (error) => {
+      toast.error(error?.message || "Something went wrong", {
+        style: {
+          fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+          padding: "0.6rem",
+        },
+      });
 
-      if (response.status === 200 && response.ok) {
-        toast.success("Saved", {
-          style: {
-            fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
-            padding: "0.6rem",
-          },
-        });
-
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 3500);
-      } else {
-        toast.error("Something went wrong", {
-          style: {
-            fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
-            padding: "0.6rem",
-          },
-        });
-
-        throw new Error(`${response.status} ${response.statusText}`);
-      }
-    } catch (e) {
       toast.error("Something went wrong", {
         style: {
           fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
           padding: "0.6rem",
         },
       });
-    }
-  };
+    },
+  });
 
   return (
     <>

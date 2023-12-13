@@ -98,9 +98,19 @@ const SaveCodeSection = ({
         }
       );
       const jsonResponse = await response.json();
-      setSavedData((prev: any) =>
-        prev.filter((item: any) => item._id !== boxId)
-      );
+      const isSuccessful = response.ok;
+      if (isSuccessful) {
+        setSavedData((prev: any) =>
+          prev.filter((item: any) => item._id !== boxId)
+        );
+
+        toast.success("Successfully Deleted", {
+          style: {
+            fontSize: "clamp(0.83rem, 0.7rem + 0.5vw, 1rem)",
+            padding: "0.6rem",
+          },
+        });
+      }
     }
     getData();
   }
